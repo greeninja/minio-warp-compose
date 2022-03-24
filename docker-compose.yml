@@ -1,0 +1,83 @@
+version: '3'
+services:
+  client01:
+    image: docker.io/minio/warp:v0.5.5
+      #environment:
+      #  HTTP_PROXY: "http://192.168.0.15:9090"
+      #  http_proxy: "http://192.168.0.15:9090"
+      #  HTTPS_PROXY: "http://192.168.0.15:9090"
+      #  https_proxy: "http://192.168.0.15:9090"
+      #  NO_PROXY: "client01,client02,client03,client04"
+    networks:
+      - warp
+    command: client
+    container_name: client01
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+  client02:
+    image: docker.io/minio/warp:v0.5.5
+      #environment:
+      #  HTTP_PROXY: "http://192.168.0.15:9090"
+      #  http_proxy: "http://192.168.0.15:9090"
+      #  HTTPS_PROXY: "http://192.168.0.15:9090"
+      #  https_proxy: "http://192.168.0.15:9090"
+      #  NO_PROXY: "client01,client02,client03,client04"
+    networks:
+      - warp
+    command: client
+    container_name: client02
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+  client03:
+    image: docker.io/minio/warp:v0.5.5
+      #environment:
+      #  HTTP_PROXY: "http://192.168.0.15:9090"
+      #  http_proxy: "http://192.168.0.15:9090"
+      #  HTTPS_PROXY: "http://192.168.0.15:9090"
+      #  https_proxy: "http://192.168.0.15:9090"
+      #  NO_PROXY: "client01,client02,client03,client04"
+    networks:
+      - warp
+    command: client
+    container_name: client03
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+  client04:
+    image: docker.io/minio/warp:v0.5.5
+      #environment:
+      #  HTTP_PROXY: "http://192.168.0.15:9090"
+      #  http_proxy: "http://192.168.0.15:9090"
+      #  HTTPS_PROXY: "http://192.168.0.15:9090"
+      #  https_proxy: "http://192.168.0.15:9090"
+      #  NO_PROXY: "client01,client02,client03,client04"
+    networks:
+      - warp
+    command: client
+    container_name: client04
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+
+  server:
+    image: docker.io/minio/warp:v0.5.5
+      #environment:
+      #  HTTP_PROXY: "http://192.168.0.15:9090"
+      #  http_proxy: "http://192.168.0.15:9090"
+      #  HTTPS_PROXY: "http://192.168.0.15:9090"
+      #  https_proxy: "http://192.168.0.15:9090"
+      #  NO_PROXY: "client01,client02,client03,client04"
+    networks:
+      - warp
+    depends_on:
+      - client01
+      - client02
+      - client03
+      - client04
+    entrypoint: /bin/sleep infinity
+    container_name: warp-server
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+
+networks:
+  warp:
+    enable_ipv6: false
+    
